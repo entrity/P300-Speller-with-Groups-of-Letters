@@ -19,8 +19,9 @@ X = np.append(targs, nongs, axis=0)
 model = discriminant_analysis.LinearDiscriminantAnalysis()
 model.fit(X, y)
 
-# Print training error
-model.score(X, y)
+print model.coef_ # coefficients
+print model.get_params() # parameters
 
-model.coef_ # coefficients
-model.get_params() # parameters
+# Print training error
+print model.score(X, y)
+
