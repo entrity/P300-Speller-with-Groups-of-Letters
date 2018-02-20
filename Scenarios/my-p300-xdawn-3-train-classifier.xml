@@ -41,7 +41,7 @@
 				</Attribute>
 				<Attribute>
 					<Identifier>(0xc46b3d00, 0x3e0454e1)</Identifier>
-					<Value>(0x00000000, 0x001fd9b5)</Value>
+					<Value>(0x00000000, 0x000dc339)</Value>
 				</Attribute>
 				<Attribute>
 					<Identifier>(0xc80ce8af, 0xf699f813)</Identifier>
@@ -96,7 +96,7 @@
 				</Attribute>
 				<Attribute>
 					<Identifier>(0xc46b3d00, 0x3e0454e1)</Identifier>
-					<Value>(0x00000000, 0x000f344d)</Value>
+					<Value>(0x00000000, 0x0012ad80)</Value>
 				</Attribute>
 				<Attribute>
 					<Identifier>(0xc80ce8af, 0xf699f813)</Identifier>
@@ -135,7 +135,7 @@
 					<TypeIdentifier>(0x330306dd, 0x74a95f98)</TypeIdentifier>
 					<Name>Filename</Name>
 					<DefaultValue></DefaultValue>
-					<Value>/home/first/storage/Lab5 Recordings/online-mk-p300-xdawn-online-[2018.02.06-10.06.41].ov</Value>
+					<Value>/home/first/storage/Lab5 Recordings/online-mk-p300-xdawn-online-[2018.02.06-10.10.08].ov</Value>
 					<Modifiability>false</Modifiability>
 				</Setting>
 			</Settings>
@@ -170,7 +170,7 @@
 				</Attribute>
 				<Attribute>
 					<Identifier>(0xc46b3d00, 0x3e0454e1)</Identifier>
-					<Value>(0x00000000, 0x00f9a071)</Value>
+					<Value>(0x00000000, 0x0099d015)</Value>
 				</Attribute>
 			</Attributes>
 		</Box>
@@ -223,7 +223,7 @@
 				</Attribute>
 				<Attribute>
 					<Identifier>(0xc46b3d00, 0x3e0454e1)</Identifier>
-					<Value>(0x00000000, 0x001f969c)</Value>
+					<Value>(0x00000000, 0x001083db)</Value>
 				</Attribute>
 				<Attribute>
 					<Identifier>(0xc73e83ec, 0xf855c5bc)</Identifier>
@@ -309,7 +309,7 @@
 				</Attribute>
 				<Attribute>
 					<Identifier>(0xc46b3d00, 0x3e0454e1)</Identifier>
-					<Value>(0x00000000, 0x001abd18)</Value>
+					<Value>(0x00000000, 0x000df58d)</Value>
 				</Attribute>
 			</Attributes>
 		</Box>
@@ -361,7 +361,7 @@
 				</Attribute>
 				<Attribute>
 					<Identifier>(0xc46b3d00, 0x3e0454e1)</Identifier>
-					<Value>(0x00000000, 0x0020e625)</Value>
+					<Value>(0x00000000, 0x001ede14)</Value>
 				</Attribute>
 			</Attributes>
 		</Box>
@@ -448,7 +448,7 @@
 				</Attribute>
 				<Attribute>
 					<Identifier>(0xc46b3d00, 0x3e0454e1)</Identifier>
-					<Value>(0x00000000, 0x0115593d)</Value>
+					<Value>(0x00000000, 0x0078747d)</Value>
 				</Attribute>
 			</Attributes>
 		</Box>
@@ -522,7 +522,7 @@
 				</Attribute>
 				<Attribute>
 					<Identifier>(0xc46b3d00, 0x3e0454e1)</Identifier>
-					<Value>(0x00000000, 0x001e7969)</Value>
+					<Value>(0x00000000, 0x00e13f48)</Value>
 				</Attribute>
 			</Attributes>
 		</Box>
@@ -593,7 +593,7 @@
 				</Attribute>
 				<Attribute>
 					<Identifier>(0xc46b3d00, 0x3e0454e1)</Identifier>
-					<Value>(0x00000000, 0x000ecfa6)</Value>
+					<Value>(0x00000000, 0x000bfe3d)</Value>
 				</Attribute>
 			</Attributes>
 		</Box>
@@ -618,7 +618,7 @@
 					<TypeIdentifier>(0x79a9edeb, 0x245d83fc)</TypeIdentifier>
 					<Name>Spatial Filter Coefficients</Name>
 					<DefaultValue>1;0;0;0;0;1;0;0;0;0;1;0;0;0;0;1</DefaultValue>
-					<Value>8.843368e-004 -6.539882e-003 6.493086e-005 -1.591978e-003 8.962039e-003 -3.487439e-003 -5.540185e-004 2.078431e-003 -9.881634e-001 1.370237e-001 6.792872e-002 -7.200659e-004 2.256230e-003 -2.132186e-004 -1.461755e-003 -9.444323e-003 -4.179003e-003 3.543052e-003 1.084137e-002 -8.566209e-001 4.692433e-001 2.139319e-001 1.155023e-003 -4.157936e-004 -4.741747e-004 1.237857e-003 -7.505389e-004 -1.501655e-003 8.736640e-004 1.437677e-003 -4.841511e-001 -8.735870e-001 4.934159e-002 </Value>
+					<Value>1.271852e-03 3.177388e-03 -2.022217e-03 4.859763e-03 1.003600e-03 9.167260e-03 -1.261950e-02 -6.411900e-03 -8.744055e-01 -4.751868e-01 9.637297e-02 -8.025049e-04 2.081584e-03 -1.453339e-03 6.502219e-04 -4.561420e-03 1.588135e-03 9.592338e-04 9.282006e-04 5.252053e-01 8.396999e-01 1.379522e-01 4.697305e-04 4.246585e-04 -4.292674e-04 -4.734897e-04 1.187557e-04 5.903875e-05 -2.657631e-04 2.460127e-04 -3.199111e-01 -1.631266e-01 9.332983e-01 </Value>
 					<Modifiability>false</Modifiability>
 				</Setting>
 				<Setting>
@@ -639,14 +639,14 @@
 					<TypeIdentifier>(0x330306dd, 0x74a95f98)</TypeIdentifier>
 					<Name>Filter matrix file</Name>
 					<DefaultValue></DefaultValue>
-					<Value></Value>
+					<Value>5,5,5</Value>
 					<Modifiability>false</Modifiability>
 				</Setting>
 			</Settings>
 			<Attributes>
 				<Attribute>
 					<Identifier>(0x1fa7a38f, 0x54edbe0b)</Identifier>
-					<Value>81.000000</Value>
+					<Value>80</Value>
 				</Attribute>
 				<Attribute>
 					<Identifier>(0x1fa963f5, 0x1a638cd4)</Identifier>
@@ -654,7 +654,7 @@
 				</Attribute>
 				<Attribute>
 					<Identifier>(0x207c9054, 0x3c841b63)</Identifier>
-					<Value>288.000000</Value>
+					<Value>288</Value>
 				</Attribute>
 				<Attribute>
 					<Identifier>(0x30a4e5c9, 0x83502953)</Identifier>
@@ -670,7 +670,7 @@
 				</Attribute>
 				<Attribute>
 					<Identifier>(0x8d21ff41, 0xdf6afe7e)</Identifier>
-					<Value>${Player_ScenarioDirectory}/p300-spatial-filter.cfg</Value>
+					<Value>/media/first/datastorage/P300-Speller-with-Groups-of-Letters/OpenvibeScenarios/p300-spatial-filter.cfg</Value>
 				</Attribute>
 				<Attribute>
 					<Identifier>(0xad100179, 0xa3c984ab)</Identifier>
@@ -678,7 +678,7 @@
 				</Attribute>
 				<Attribute>
 					<Identifier>(0xc46b3d00, 0x3e0454e1)</Identifier>
-					<Value>(0x00000000, 0x002bd7f2)</Value>
+					<Value>(0x00000000, 0x0005c465)</Value>
 				</Attribute>
 				<Attribute>
 					<Identifier>(0xc80ce8af, 0xf699f813)</Identifier>
@@ -761,7 +761,7 @@
 				</Attribute>
 				<Attribute>
 					<Identifier>(0xc46b3d00, 0x3e0454e1)</Identifier>
-					<Value>(0x00000000, 0x001083de)</Value>
+					<Value>(0x00000000, 0x000af1c9)</Value>
 				</Attribute>
 			</Attributes>
 		</Box>
@@ -891,7 +891,7 @@
 				</Attribute>
 				<Attribute>
 					<Identifier>(0xc46b3d00, 0x3e0454e1)</Identifier>
-					<Value>(0x00000000, 0x001b8675)</Value>
+					<Value>(0x00000000, 0x0010d7bb)</Value>
 				</Attribute>
 				<Attribute>
 					<Identifier>(0xc73e83ec, 0xf855c5bc)</Identifier>
@@ -916,19 +916,9 @@
 			</Attributes>
 		</Box>
 		<Box>
-			<Identifier>(0x4b1dd982, 0x0fd4a8ee)</Identifier>
+			<Identifier>(0x7b0c16c2, 0x48d9dbf3)</Identifier>
 			<Name>Python scripting</Name>
 			<AlgorithmClassIdentifier>(0x5dc4f669, 0xd3fd4d64)</AlgorithmClassIdentifier>
-			<Inputs>
-				<Input>
-					<TypeIdentifier>(0x544a003e, 0x6dcba5f6)</TypeIdentifier>
-					<Name>targets</Name>
-				</Input>
-				<Input>
-					<TypeIdentifier>(0x544a003e, 0x6dcba5f6)</TypeIdentifier>
-					<Name>nontargets</Name>
-				</Input>
-			</Inputs>
 			<Settings>
 				<Setting>
 					<TypeIdentifier>(0x007deef9, 0x2f3e95c6)</TypeIdentifier>
@@ -941,7 +931,7 @@
 					<TypeIdentifier>(0xb0d0db45, 0x49cbc34a)</TypeIdentifier>
 					<Name>Script</Name>
 					<DefaultValue></DefaultValue>
-					<Value>/media/sf_desktop-tmp/P300-Speller-with-Groups-of-Letters/python/scripts/explore_feature_aggregator.py</Value>
+					<Value></Value>
 					<Modifiability>false</Modifiability>
 				</Setting>
 			</Settings>
@@ -952,7 +942,7 @@
 				</Attribute>
 				<Attribute>
 					<Identifier>(0x1fa7a38f, 0x54edbe0b)</Identifier>
-					<Value>451.000000</Value>
+					<Value>288.000000</Value>
 				</Attribute>
 				<Attribute>
 					<Identifier>(0x1fa963f5, 0x1a638cd4)</Identifier>
@@ -960,7 +950,7 @@
 				</Attribute>
 				<Attribute>
 					<Identifier>(0x207c9054, 0x3c841b63)</Identifier>
-					<Value>288.000000</Value>
+					<Value>704.000000</Value>
 				</Attribute>
 				<Attribute>
 					<Identifier>(0x30a4e5c9, 0x83502953)</Identifier>
@@ -983,8 +973,8 @@
 					<Value>127</Value>
 				</Attribute>
 				<Attribute>
-					<Identifier>(0xc46b3d00, 0x3e0454e1)</Identifier>
-					<Value>(0x00000000, 0x000b45b0)</Value>
+					<Identifier>(0xc67a01dc, 0x28ce06c1)</Identifier>
+					<Value></Value>
 				</Attribute>
 				<Attribute>
 					<Identifier>(0xc73e83ec, 0xf855c5bc)</Identifier>
@@ -1019,7 +1009,7 @@
 			<Attributes>
 				<Attribute>
 					<Identifier>(0x1b32c44c, 0x1905e0e9)</Identifier>
-					<Value>116</Value>
+					<Value>115</Value>
 				</Attribute>
 				<Attribute>
 					<Identifier>(0x358ae8b5, 0x0f8bacd1)</Identifier>
@@ -1085,7 +1075,7 @@
 				</Attribute>
 				<Attribute>
 					<Identifier>(0x3f0a3b27, 0x570913d2)</Identifier>
-					<Value>48</Value>
+					<Value>47</Value>
 				</Attribute>
 				<Attribute>
 					<Identifier>(0x6267b5c5, 0x676e3e42)</Identifier>
@@ -1164,7 +1154,7 @@
 			<Attributes>
 				<Attribute>
 					<Identifier>(0x1b32c44c, 0x1905e0e9)</Identifier>
-					<Value>116</Value>
+					<Value>115</Value>
 				</Attribute>
 				<Attribute>
 					<Identifier>(0x358ae8b5, 0x0f8bacd1)</Identifier>
@@ -1355,35 +1345,6 @@
 			</Attributes>
 		</Link>
 		<Link>
-			<Identifier>(0x41b9b56c, 0x7b758166)</Identifier>
-			<Source>
-				<BoxIdentifier>(0x00000d41, 0x000013b7)</BoxIdentifier>
-				<BoxOutputIndex>0</BoxOutputIndex>
-			</Source>
-			<Target>
-				<BoxIdentifier>(0x4b1dd982, 0x0fd4a8ee)</BoxIdentifier>
-				<BoxInputIndex>1</BoxInputIndex>
-			</Target>
-			<Attributes>
-				<Attribute>
-					<Identifier>(0x1b32c44c, 0x1905e0e9)</Identifier>
-					<Value>379</Value>
-				</Attribute>
-				<Attribute>
-					<Identifier>(0x358ae8b5, 0x0f8bacd1)</Identifier>
-					<Value>544</Value>
-				</Attribute>
-				<Attribute>
-					<Identifier>(0x3f0a3b27, 0x570913d2)</Identifier>
-					<Value>425</Value>
-				</Attribute>
-				<Attribute>
-					<Identifier>(0x6267b5c5, 0x676e3e42)</Identifier>
-					<Value>295</Value>
-				</Attribute>
-			</Attributes>
-		</Link>
-		<Link>
 			<Identifier>(0x5a67b7d8, 0x1cf07f9a)</Identifier>
 			<Source>
 				<BoxIdentifier>(0x00001f83, 0x00004e32)</BoxIdentifier>
@@ -1467,35 +1428,6 @@
 				<Attribute>
 					<Identifier>(0x6267b5c5, 0x676e3e42)</Identifier>
 					<Value>432</Value>
-				</Attribute>
-			</Attributes>
-		</Link>
-		<Link>
-			<Identifier>(0x6f99367b, 0x78042299)</Identifier>
-			<Source>
-				<BoxIdentifier>(0x00000b2d, 0x00006d61)</BoxIdentifier>
-				<BoxOutputIndex>0</BoxOutputIndex>
-			</Source>
-			<Target>
-				<BoxIdentifier>(0x4b1dd982, 0x0fd4a8ee)</BoxIdentifier>
-				<BoxInputIndex>0</BoxInputIndex>
-			</Target>
-			<Attributes>
-				<Attribute>
-					<Identifier>(0x1b32c44c, 0x1905e0e9)</Identifier>
-					<Value>379</Value>
-				</Attribute>
-				<Attribute>
-					<Identifier>(0x358ae8b5, 0x0f8bacd1)</Identifier>
-					<Value>320</Value>
-				</Attribute>
-				<Attribute>
-					<Identifier>(0x3f0a3b27, 0x570913d2)</Identifier>
-					<Value>425</Value>
-				</Attribute>
-				<Attribute>
-					<Identifier>(0x6267b5c5, 0x676e3e42)</Identifier>
-					<Value>280</Value>
 				</Attribute>
 			</Attributes>
 		</Link>
