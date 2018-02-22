@@ -1,7 +1,4 @@
 import sys, os, os.path
-import pygtk
-pygtk.require('2.0')
-import gtk
 
 # LOG = os.path.join(os.path.dirname(os.path.realpath('__file__')), '../../1-visualisation.log')
 DIR = '/media/sf_desktop-tmp/P300-Speller-with-Groups-of-Letters/'
@@ -10,94 +7,121 @@ LOG = os.path.join(DIR,'1-visualisation.log')
 import numpy as np
 from sklearn import discriminant_analysis
 
+# This import requires that a symlink to this directory exist in
+# openvibe-1.3.0-src/dist/share/openvibe/plugins/python
+import markham.my_gtk as my_gtk
+from StimulationsCodes import OpenViBE_stimulation as stimcodes
 
-CHARS = [ chr(x) for x in range(65,91) ] + [ chr(x) for x in range(48,58) ]
+rowbase = stimcodes['OVTK_StimulationId_Label_01']
+colbase = stimcodes['OVTK_StimulationId_Label_07']
 
-def make_label():
-  l = gtk.Label()
-  l.set_justify(gtk.JUSTIFY_CENTER)
-  l.show()
-  return l
+# Segment is one repetition through all columns and rows
+# Trial is enough repetitions to make a selection
+stimstart      = stimcodes['OVTK_StimulationId_ExperimentStart']
+stimstop       = stimcodes['OVTK_StimulationId_ExperimentStop']
+stimreststart  = stimcodes['OVTK_StimulationId_RestStart'] # Show next target
+stimreststop   = stimcodes['OVTK_StimulationId_RestStop'] # Trial and segment will begin
+stimsegstart   = stimcodes['OVTK_StimulationId_SegmentStart']
+stimsegstop    = stimcodes['OVTK_StimulationId_SegmentStop']
+stimtrain      = stimcodes['OVTK_StimulationId_Train']
+stimtrialstart = stimcodes['OVTK_StimulationId_TrialStart']
+stimtrialstop  = stimcodes['OVTK_StimulationId_TrialStop']
+stimstimstart  = stimcodes['OVTK_StimulationId_VisualStimulationStart']
+stimstimstop   = stimcodes['OVTK_StimulationId_VisualStimulationStop']
 
-class Base:
-  def __init__(self):
-    self.window = gtk.Window(gtk.WINDOW_TOPLEVEL)
-    self.lbls = [make_label() for i in range(4)]
-    # Table
-    self.table = gtk.Table(rows=2, columns=2, homogeneous=True)
-    self.table.attach(self.lbls[0], 0, 1, 0, 1)
-    self.table.attach(self.lbls[1], 1, 2, 0, 1)
-    self.table.attach(self.lbls[2], 0, 1, 1, 2)
-    self.table.attach(self.lbls[3], 1, 2, 1, 2)
-    self.table.show()
-    # Target
-    self.text  = gtk.TextBuffer()
-    self.text.set_text("Target : ")
-    self.label = gtk.TextView(self.text)
-    self.label.show()
-    # Main container
-    self.vbox = gtk.VBox(False, 0)
-    self.vbox.pack_start(self.table, expand=True, fill=True)
-    self.vbox.pack_end(self.label, expand=False, fill=True)
-    self.vbox.show()
-    # Window
-    self.window = gtk.Window(gtk.WINDOW_TOPLEVEL)
-    self.window.resize(600,600)
-    self.window.add(self.vbox)
-    self.window.show()
-    self._set_view((1,))
-
-  def _get_chars(self, selections):
-    threes = [CHARS[i:i+3] for i in range(0, len(CHARS), 3)]
-    triptrips = [threes[i:i+3] for i in range(0, len(threes), 3)]
-    if len(selections) == 0:
-      str9s = ['\n'.join(' '.join(x) for x in y) for y in triptrips]
-      return str9s
-    elif len(selections) == 1:
-      return [' '.join(x) for x in triptrips[selections[0]]] + ['<back>']
-    else:
-      return triptrips[selections[0]][selections[1]] + ['<back>']
-
-  def _set_view(self, selections):
-    lists = self._get_chars(selections)
-    print(lists)
-    for i in range(4):
-      size = 50000 if len(selections) == 0 else 100000
-      self.lbls[i].set_markup(('<span size="%d">' % size)+lists[i]+'</span>')
-    if len(selections) > 0:
-      self.lbls[3].set_markup('<span size="40000">&lt;back&gt;</span>')
-
-  def main(self):
-    gtk.main()
+class State:
+	NULL       = 0
+	EXPERIMENT = 1<<0
+	REST       = 1<<1 
+	TRIAL      = 1<<2
+	SEGMENT    = 1<<3
+	VISUAL     = 1<<4
 
 class MyOVBox(OVBox):
 	def __init__(self):
 		OVBox.__init__(self)
+		global my_gtk
+		my_gtk = reload(my_gtk) # kludge b/c openvibe seems to cache modules
 		self.gui = None
+		self.count = 0
 		
 	def initialize(self):
 		print('Python version:', sys.version)
 		print('LOG:', LOG)
 		if os.path.exists(LOG): os.remove(LOG)
-		self.gui = Base()
+		self.gui = my_gtk.Base()
+		self.state = State.NULL
 		return
 		
 	def process(self):
-		global stimmap
+		self.count += 1
 		for i in range(len(self.input)):
 			source = self.input[i]
 			for chunkIndex in range( len(source) ):
 				chunk = source.pop()
 				if(type(chunk) == OVStimulationSet):
-					for stimIdx in range(len(chunk)):
-						stim=chunk.pop();
-						if stim.identifier in stimmap:
-							with open(LOG, 'a') as f:
-								print >> f, _stimtext(stim, i)
-						else:
-							sys.stderr.write(_stimtext(stim, i))
+					self._process_stims(chunk, self.count)
 		return
 
+	# For debugging
+	def _print_stims(self, stims, chunk_id):
+		global stimmap
+		if stim.identifier in stimmap:
+			with open(LOG, 'a') as f:
+				print >> f, _stimtext(stim, i)
+				# if stim.identifier in range(rowbase, colbase+14):
+				# 	if stim.identifier < colbase:
+				# 		print >> f, 'Flash Row', stim.identifier - rowbase
+				# 	else:
+				# 		print >> f, 'Flash Col', stim.identifier - colbase
+		else:
+			sys.stderr.write(_stimtext(stim, i))
+
+	def _process_stims(self, stimslist, chunk_id):
+		stims = {s:True for s in stimslist}
+		# Set state
+		if stimstart in stims:
+			self.state |= State.EXPERIMENT
+		elif stimstop in stims:
+			self.state &= ~State.EXPERIMENT
+		if stimreststart in stims: # Show next target for a limited time
+			self.state |= State.Rest
+			self.target_row = None
+			self.target_col = None
+		elif stimreststop in stims:
+			self.state &= ~State.REST
+		if stimsegstart in stims:
+			self.state |= State.SEGMENT
+		elif stimsegstop in stims:
+			self.state &= ~State.SEGMENT
+		if stimtrain in stims:
+			pass
+		if stimtrialstart in stims:
+			self.state |= State.TRIAL
+		elif stimtrialstop in stims:
+			self.state &= ~State.TRIAL
+		if stimstimstart in stims: # Flash row/col
+			self.state |= State.VISUAL
+		elif stimstimstop in stims:
+			self.state &= ~State.VISUAL
+		# Send commands to GUI
+		for stim in stimslist:
+			if stim in range(rowbase, rowbase+1):
+				row = stim - rowbase
+				if self.state & State.REST:
+					self.target_row = row
+					print 'New target row', row
+				else:
+					self.gui.highlight_row(row)
+			elif stim in range(colbase, colbase+1):
+				col = stim - colbase
+				if self.state & State.REST:
+					self.target_col = col
+					print 'New target col', col
+				else:
+					self.gui.highlight_col(col)
+			elif stimreststart == stim:
+				self.gui.highlight_target(self.target_row, self.target_col)
 
 	def uninitialize(self):
 		if self.gui != None:
@@ -105,7 +129,7 @@ class MyOVBox(OVBox):
 		return
 
 def _stimtext(stim, input):
-	return 'Received in %d stim %d %s stamped at %lf' % (input, stim.identifier, stimmap.get(stim.identifier,'ERR'), stim.date)
+	return 'Received in %6d stim %d %s stamped at %lf' % (input, stim.identifier, stimmap.get(stim.identifier,'ERR'), stim.date)
 
 stimmap = {	
 	0x00008001: 'OVTK_StimulationId_ExperimentStart',
@@ -203,5 +227,12 @@ stimmap = {
 	0x00008207: 'OVTK_StimulationId_TrainCompleted',
 	0x00008208: 'OVTK_StimulationId_Reset',
 }
+
+with open(DIR + '/modules.txt', 'w') as f:
+			print >> f, dir()
+			print >> f, sys.modules
+			print >> f, sys.argv
+			print >> f, __name__, x, __package__
+			print >> f, sys.path
 
 box = MyOVBox()
