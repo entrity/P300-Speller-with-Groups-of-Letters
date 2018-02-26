@@ -60,22 +60,24 @@ class MyOVBox(OVBox):
 			for chunkIndex in range( len(source) ):
 				chunk = source.pop()
 				if(type(chunk) == OVStimulationSet):
-					self._process_stims(chunk, self.count)
+					self._process_stims([stim.identifier for stim in chunk], self.count)
+					self._print_stims(chunk, self.count)
 		return
 
 	# For debugging
 	def _print_stims(self, stims, chunk_id):
 		global stimmap
-		if stim.identifier in stimmap:
-			with open(LOG, 'a') as f:
-				print >> f, _stimtext(stim, i)
-				# if stim.identifier in range(rowbase, colbase+14):
-				# 	if stim.identifier < colbase:
-				# 		print >> f, 'Flash Row', stim.identifier - rowbase
-				# 	else:
-				# 		print >> f, 'Flash Col', stim.identifier - colbase
-		else:
-			sys.stderr.write(_stimtext(stim, i))
+		for stim in stims:
+			if stim.identifier in stimmap:
+				with open(LOG, 'a') as f:
+					print >> f, _stimtext(stim, chunk_id)
+					# if stim.identifier in range(rowbase, colbase+14):
+					# 	if stim.identifier < colbase:
+					# 		print >> f, 'Flash Row', stim.identifier - rowbase
+					# 	else:
+					# 		print >> f, 'Flash Col', stim.identifier - colbase
+			else:
+				sys.stderr.write(_stimtext(stim, chunk_id))
 
 	def _process_stims(self, stimslist, chunk_id):
 		stims = {s:True for s in stimslist}
@@ -85,7 +87,7 @@ class MyOVBox(OVBox):
 		elif stimstop in stims:
 			self.state &= ~State.EXPERIMENT
 		if stimreststart in stims: # Show next target for a limited time
-			self.state |= State.Rest
+			self.state |= State.REST
 			self.target_row = None
 			self.target_col = None
 		elif stimreststop in stims:
@@ -106,22 +108,31 @@ class MyOVBox(OVBox):
 			self.state &= ~State.VISUAL
 		# Send commands to GUI
 		for stim in stimslist:
-			if stim in range(rowbase, rowbase+1):
+			if stim in range(rowbase, rowbase+2):
 				row = stim - rowbase
 				if self.state & State.REST:
 					self.target_row = row
 					print 'New target row', row
-				else:
+					self._highlight_target_if_indicated()
+				elif self.state & State.VISUAL:
 					self.gui.highlight_row(row)
-			elif stim in range(colbase, colbase+1):
+					print 'row', row
+			elif stim in range(colbase, colbase+2):
 				col = stim - colbase
 				if self.state & State.REST:
 					self.target_col = col
 					print 'New target col', col
-				else:
+					self._highlight_target_if_indicated()
+				elif self.state & State.VISUAL:
 					self.gui.highlight_col(col)
-			elif stimreststart == stim:
-				self.gui.highlight_target(self.target_row, self.target_col)
+					print 'col', col
+		if stimreststart in stims:
+			self.target_row = None
+			self.target_col = None
+
+	def _highlight_target_if_indicated(self):
+		if self.target_row != None and self.target_col != None:
+			self.gui.highlight_target(self.target_row, self.target_col)
 
 	def uninitialize(self):
 		if self.gui != None:
@@ -232,7 +243,6 @@ with open(DIR + '/modules.txt', 'w') as f:
 			print >> f, dir()
 			print >> f, sys.modules
 			print >> f, sys.argv
-			print >> f, __name__, x, __package__
 			print >> f, sys.path
 
 box = MyOVBox()
