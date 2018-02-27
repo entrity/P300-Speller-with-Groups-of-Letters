@@ -1,0 +1,8 @@
+*.tsv
+*.txt
+*.pyc
+*.log
+*.tmp
+*.pkl
+tmp*
+temp*

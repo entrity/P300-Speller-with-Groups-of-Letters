@@ -93,6 +93,7 @@ class MyOVBox(OVBox):
 			self.state |= State.REST
 		elif stimreststop in stims:
 			self.state &= ~State.REST
+			self.gui.restore()
 		if stimsegstart in stims:
 			self.state |= State.SEGMENT
 		elif stimsegstop in stims:
