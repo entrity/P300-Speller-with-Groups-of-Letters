@@ -1,8 +1,10 @@
 import sys, os, os.path
+import random
 
 # LOG = os.path.join(os.path.dirname(os.path.realpath('__file__')), '../../1-visualisation.log')
 DIR = '/media/sf_desktop-tmp/P300-Speller-with-Groups-of-Letters/'
 LOG = os.path.join(DIR,'1-visualisation.log')
+DEBUG = 0
 
 import numpy as np
 from sklearn import discriminant_analysis
@@ -51,6 +53,7 @@ class MyOVBox(OVBox):
 		if os.path.exists(LOG): os.remove(LOG)
 		self.gui = my_gtk.Base()
 		self.state = State.NULL
+		self.trial = ()
 		return
 		
 	def process(self):
@@ -88,8 +91,6 @@ class MyOVBox(OVBox):
 			self.state &= ~State.EXPERIMENT
 		if stimreststart in stims: # Show next target for a limited time
 			self.state |= State.REST
-			self.target_row = None
-			self.target_col = None
 		elif stimreststop in stims:
 			self.state &= ~State.REST
 		if stimsegstart in stims:
@@ -107,32 +108,38 @@ class MyOVBox(OVBox):
 		elif stimstimstop in stims:
 			self.state &= ~State.VISUAL
 		# Send commands to GUI
+		if not self.state & State.REST:
+			self.row = None
+			self.col = None
 		for stim in stimslist:
-			if stim in range(rowbase, rowbase+2):
+			if stim in range(rowbase, rowbase+my_gtk.ROW_CT):
 				row = stim - rowbase
 				if self.state & State.REST:
-					self.target_row = row
-					print 'New target row', row
-					self._highlight_target_if_indicated()
+					self.row = row
+					if self.col is not None:
+						self.gui.highlight_target(self.row, self.col)
 				elif self.state & State.VISUAL:
 					self.gui.highlight_row(row)
-					print 'row', row
-			elif stim in range(colbase, colbase+2):
+				if DEBUG > 1: print 'row', '(%d)' % chunk_id, row, self.row
+			elif stim in range(colbase, colbase+my_gtk.COL_CT):
 				col = stim - colbase
 				if self.state & State.REST:
-					self.target_col = col
-					print 'New target col', col
-					self._highlight_target_if_indicated()
+					self.col = col
+					if self.row is not None:
+						self.gui.highlight_target(self.row, self.col)
 				elif self.state & State.VISUAL:
 					self.gui.highlight_col(col)
-					print 'col', col
-		if stimreststart in stims:
-			self.target_row = None
-			self.target_col = None
-
-	def _highlight_target_if_indicated(self):
-		if self.target_row != None and self.target_col != None:
-			self.gui.highlight_target(self.target_row, self.target_col)
+				if DEBUG > 1: print 'col', '(%d)' % chunk_id, col, self.col
+		# Change to a different view for sake of training on different views
+		if stimtrialstop in stims:
+			if len(self.trial) == 2:
+				self.trial = ()
+			else:
+				self.trial = self.trial + (random.randint(0,2),)
+			if DEBUG > 0: print 'trial', self.trial
+			self.gui._set_view(self.trial)
+		if stimstimstop in stims:
+			self.gui.restore()
 
 	def uninitialize(self):
 		if self.gui != None:

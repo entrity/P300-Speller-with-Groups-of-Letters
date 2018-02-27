@@ -66,7 +66,7 @@
 				</Attribute>
 				<Attribute>
 					<Identifier>(0xc46b3d00, 0x3e0454e1)</Identifier>
-					<Value>(0x00000000, 0x02f2c72b)</Value>
+					<Value>(0x00000000, 0x01a0dfde)</Value>
 				</Attribute>
 				<Attribute>
 					<Identifier>(0xc73e83ec, 0xf855c5bc)</Identifier>
@@ -146,7 +146,7 @@
 					<TypeIdentifier>(0x007deef9, 0x2f3e95c6)</TypeIdentifier>
 					<Name>Number of repetitions</Name>
 					<DefaultValue>5</DefaultValue>
-					<Value>12</Value>
+					<Value>3</Value>
 					<Modifiability>false</Modifiability>
 				</Setting>
 				<Setting>
@@ -215,7 +215,11 @@
 				</Attribute>
 				<Attribute>
 					<Identifier>(0xc46b3d00, 0x3e0454e1)</Identifier>
-					<Value>(0x00000000, 0x0136b4c6)</Value>
+					<Value>(0x00000000, 0x00dd3fe2)</Value>
+				</Attribute>
+				<Attribute>
+					<Identifier>(0xc67a01dc, 0x28ce06c1)</Identifier>
+					<Value></Value>
 				</Attribute>
 			</Attributes>
 		</Box>
@@ -381,7 +385,7 @@
 				</Attribute>
 				<Attribute>
 					<Identifier>(0xc46b3d00, 0x3e0454e1)</Identifier>
-					<Value>(0x00000000, 0x01bea0b9)</Value>
+					<Value>(0x00000000, 0x023e07a3)</Value>
 				</Attribute>
 			</Attributes>
 		</Box>
@@ -434,7 +438,7 @@
 				</Attribute>
 				<Attribute>
 					<Identifier>(0xc46b3d00, 0x3e0454e1)</Identifier>
-					<Value>(0x00000000, 0x001743ea)</Value>
+					<Value>(0x00000000, 0x000f01fd)</Value>
 				</Attribute>
 				<Attribute>
 					<Identifier>(0xc73e83ec, 0xf855c5bc)</Identifier>
@@ -515,7 +519,7 @@
 				</Attribute>
 				<Attribute>
 					<Identifier>(0xc46b3d00, 0x3e0454e1)</Identifier>
-					<Value>(0x00000000, 0x001fa768)</Value>
+					<Value>(0x00000000, 0x00205ff6)</Value>
 				</Attribute>
 				<Attribute>
 					<Identifier>(0xc73e83ec, 0xf855c5bc)</Identifier>
@@ -580,7 +584,7 @@
 					<TypeIdentifier>(0x512a166f, 0x5c3ef83f)</TypeIdentifier>
 					<Name>Delay Before Sending (in sec)</Name>
 					<DefaultValue>2</DefaultValue>
-					<Value>1</Value>
+					<Value>0</Value>
 					<Modifiability>false</Modifiability>
 				</Setting>
 			</Settings>
@@ -615,11 +619,7 @@
 				</Attribute>
 				<Attribute>
 					<Identifier>(0xc46b3d00, 0x3e0454e1)</Identifier>
-					<Value>(0x00000000, 0x0bc77144)</Value>
-				</Attribute>
-				<Attribute>
-					<Identifier>(0xc67a01dc, 0x28ce06c1)</Identifier>
-					<Value></Value>
+					<Value>(0x00000000, 0x053458c9)</Value>
 				</Attribute>
 				<Attribute>
 					<Identifier>(0xc80ce8af, 0xf699f813)</Identifier>
@@ -714,7 +714,7 @@
 				</Attribute>
 				<Attribute>
 					<Identifier>(0xc46b3d00, 0x3e0454e1)</Identifier>
-					<Value>(0x00000000, 0x0c213a0c)</Value>
+					<Value>(0x00000000, 0x1044178a)</Value>
 				</Attribute>
 				<Attribute>
 					<Identifier>(0xc73e83ec, 0xf855c5bc)</Identifier>

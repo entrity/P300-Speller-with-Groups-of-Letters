@@ -12,10 +12,11 @@ NULL_BG = gtk.gdk.Color(60535,60535,60535)
 NULL_BG = gtk.gdk.Color(0,0,0)
 FLASH_BG = gtk.gdk.Color(10000,10000,10000)
 FLASH_FG = gtk.gdk.Color(60535,60535,60535)
-TARGET_FG = gtk.gdk.Color(0,0,0)
-TARGET_BG = gtk.gdk.Color(13535,11000,25535)
-FLASH_DURATION = 120
-TARGET_DURATION = 120
+TARGET_FG = gtk.gdk.Color(5000,5000,5000)
+TARGET_BG = gtk.gdk.Color(14535,13500,36535) # Purple
+WINDOW_DIM = (700,700)
+FONT_SIZES = (45000, 55000, 60000, 40000)
+
 
 CHARS = [ chr(x) for x in range(65,91) ] + [ chr(x) for x in range(48,58) ]
 
@@ -42,7 +43,7 @@ class Cell(gtk.EventBox):
       self.size = kwargs['size']
     size = kwargs.get('size', self.size)
     if 'factor' in kwargs:
-      size = int(factor * size)
+      size = int(kwargs['factor'] * size)
     self.lbl.set_markup('<span size="%d">%s</span>' % (size, text))
     if 'fg' in kwargs: self.fg(kwargs.get('fg'))
     if 'bg' in kwargs: self.bg(kwargs.get('bg'))
@@ -77,7 +78,7 @@ class Base:
     self.vbox.pack_end(self.target, expand=False, fill=True)
     self.vbox.show()
     # Window
-    self.window.resize(600,600)
+    self.window.resize(*WINDOW_DIM)
     self.window.add(self.vbox)
     self.window.show()
     self._set_view(())
@@ -98,13 +99,16 @@ class Base:
   def _set_view(self, selections):
     lists = self._get_chars(selections)
     for i in range(4):
-      size = 50000 if len(selections) == 0 else 100000
-      self.cells[i].markup(text=lists[i], size=size)
+      self.cells[i].markup(text=lists[i], size=FONT_SIZES[len(selections)])
     if len(selections) > 0:
-      self.cells[i].markup(text='&#8592;back', size=40000)
+      self.cells[i].markup(text='&#8592;back', size=FONT_SIZES[-1])
 
   def start(self, target_text):
     self.target_text = target_text
+
+  def restore(self):
+    for cell in self.cells:
+      cell.markup(bg=NULL_BG, fg=NULL_FG)
 
   def _restore_bg(self):
     for lbl in self.cells:
@@ -113,23 +117,14 @@ class Base:
 
   def cell(self, row, col):
     return self.cells[COL_CT * row + col]
-    cell = self.cells[i]
-    cell.markup(factor=1.5)
-    cell.bg(bg_color)
-    if fg_color != None:
-      cell.fg(fg_color)
 
   def highlight_row(self, row):
-    self._restore_bg()
     for col in range(COL_CT):
-      self.cell(row, col).markup(bg=FLASH_BG, fg=FLASH_FG)
-    gobject.timeout_add(FLASH_DURATION, self._restore_bg)
+      self.cell(row, col).markup(bg=FLASH_BG, fg=FLASH_FG, factor=1.25)
 
   def highlight_col(self, col):
-    self._restore_bg()
     for row in range(ROW_CT):
-      self.cell(row, col).markup(bg=FLASH_BG, fg=FLASH_FG)
-    gobject.timeout_add(FLASH_DURATION, self._restore_bg)
+      self.cell(row, col).markup(bg=FLASH_BG, fg=FLASH_FG, factor=1.25)
 
   def highlight_target(self, row, col):
     self.cell(row, col).markup(bg=TARGET_BG, fg=TARGET_FG) # Leave lit until next thing should be lit
