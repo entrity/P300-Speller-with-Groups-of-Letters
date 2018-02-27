@@ -6,6 +6,8 @@ from sklearn.externals import joblib
 
 DIR = expanduser("~")
 DIR = '/media/sf_desktop-tmp/P300-Speller-with-Groups-of-Letters/'
+if not os.path.exists(DIR):
+	DIR = u'/home/markham/Desktop/tmp/P300-Speller-with-Groups-of-Letters'
 inputLbls = ('target', 'nontarget')
 tsv = tuple([os.path.join(DIR,'%s.tsv') % lbl for lbl in inputLbls])
 log = tuple([os.path.join(DIR,'%s.log') % lbl for lbl in inputLbls])
@@ -84,8 +86,42 @@ class MyOVBox(OVBox):
 			print('Model saved.')
 			# Print training error
 			print('Score', model.score(X, y))
+			# Print throughput
+			correct = 0
+			any_err = 0
+			errors  = 0
+			samples = Sample.all()
+			for i, sample in enumerate(samples):
+				p = model.predict(sample.data.reshape(1,90))
+				if p == sample.label:
+					correct += 1
+				elif i % 3 == 2: # Error counts as full error only on the LAST view (for our UI)
+					errors += 1
+					any_err += 1
+				else:
+					errors += 1.0/3.0
+					any_err += 1
+			print('Throughput', correct - 2 * errors, 'correct', correct, 'error', errors, 'frac1', float(correct) / (correct + errors))
+			print('----------', correct - 2 * errors, 'correct', correct, 'anyer', any_err, 'frac2', float(correct) / (correct + any_err))
 		else:
 			sys.stderr.write("Missing one or more tsv files. Maybe you didn't let the recording run long enough to get stims and features for both classes?\n")
 		return
+
+class Sample:
+	def __init__(self, line, label):
+		start, finish, features = line.split('\t')
+		self.label = label
+		self.start = float(start)
+		self.data = np.asarray(eval(features))
+
+	@staticmethod
+	def all():
+		out = []
+		with open(log[0]) as f: # targets
+			out += [Sample(line,1) for line in f]
+		with open(log[1]) as f: # non-targets
+			out += [Sample(line,0) for line in f]
+		out.sort(key=lambda x: x.start)
+		return out
 
 box = MyOVBox(dir())
