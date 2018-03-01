@@ -10,7 +10,7 @@ COL_CT = 2
 NULL_FG = gtk.gdk.Color(20000,20000,20000)
 NULL_BG = gtk.gdk.Color(60535,60535,60535)
 NULL_BG = gtk.gdk.Color(0,0,0)
-FLASH_BG = gtk.gdk.Color(10000,10000,10000)
+FLASH_BG = gtk.gdk.Color(2000,2000,2000)
 FLASH_FG = gtk.gdk.Color(60535,60535,60535)
 TARGET_FG = gtk.gdk.Color(5000,5000,5000)
 TARGET_BG = gtk.gdk.Color(14535,13500,36535) # Purple
@@ -58,6 +58,7 @@ class Base:
   def __init__(self):
     # Non-gui attrs
     self.timer = None
+    self.target_ct = 0
     # Gui attrs
     self.window = gtk.Window(gtk.WINDOW_TOPLEVEL)
     if 'openvibe' not in sys.argv:
@@ -104,7 +105,7 @@ class Base:
       self.cells[i].markup(text='&#8592;back', size=FONT_SIZES[-1])
 
   def start(self, target_text):
-    self.target_text = target_text
+    self.target.set_markup(target_text)
 
   def restore(self):
     for cell in self.cells:
@@ -127,7 +128,9 @@ class Base:
       self.cell(row, col).markup(bg=FLASH_BG, fg=FLASH_FG, factor=1.25)
 
   def highlight_target(self, row, col):
+    self.target_ct += 1
     self.cell(row, col).markup(bg=TARGET_BG, fg=TARGET_FG) # Leave lit until next thing should be lit
+    self.target.set_markup('Target: (%d,%d) [%d]' % (row, col, self.target_ct))
 
   def _destroy(self, widget, data=None):
     print('quitting')
