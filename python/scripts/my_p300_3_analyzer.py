@@ -82,7 +82,7 @@ class Trial:
 			elif stim.c != None and stim.r == None:
 				self.visual_state = COL_STATE
 			else:
-				raise Exception('illegal stim for visual state')
+				raise Exception('illegal stim for visual state %s' % (stim))
 		elif 'OVTK_StimulationId_VisualStimulationStop' in stim.stims: # may occur on same line as 'start'
 			self.visual_state = None
 	def add_feature(self, feature):
@@ -124,11 +124,14 @@ class Stim(Datum):
 		self.r, \
 		self.c, \
 		self.stims = tsv.split('\t', 6)
+		self.stims = self.stims.split('\t')
 		Datum.__init__(self)
 		self.target_r = int(self.target_r) if self.target_r != 'nan' else None
 		self.target_c = int(self.target_c) if self.target_c != 'nan' else None
 		self.r = int(self.r) if self.r != 'nan' else None
 		self.c = int(self.c) if self.c != 'nan' else None
+	def __str__(self):
+		return ' '.join(self.stims)
 
 if __name__ == '__main__':
 	import sys
@@ -139,5 +142,9 @@ if __name__ == '__main__':
 	res = a.run()
 	print(res)
 	if (len(sys.argv) > 4):
-		with open(sys.argv[4],'w') as f:
-			f.write('\n'.join([str(b) for b in res]))
+		with open(sys.argv[4],'a') as f:
+			f.write('\t'.join(sys.argv[5:]))
+			f.write('\n')
+			f.write('sum %d / %d\n' % (sum([1 if b else -1 for b in res]), len(res)))
+			f.write('\t'.join([str(b) for b in res]))
+			f.write('\n')
