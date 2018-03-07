@@ -30,10 +30,10 @@ class MyOVBox(OVBox):
 		print('Python version:', sys.version)
 		print('LOG:', LOG)
 		if os.path.exists(LOG): os.remove(LOG)
-		with open(STIM_TSV, 'a') as f:
-			f.write('\t'.join(('start', 'in-channel', 'tar-row', 'tar-col', 'cur-row', 'cur-col', 'stims...')))
-		with open(FEATURE_TSV, 'a') as f:
-			f.write('\t'.join(('start', 'in-channel', 'features...')))
+		with open(STIM_TSV, 'w') as f:
+			f.write('\t'.join(('start', 'in-channel', 'tar-row', 'tar-col', 'cur-row', 'cur-col', 'stims...')) + '\n')
+		with open(FEATURE_TSV, 'w') as f:
+			f.write('\t'.join(('start', 'in-channel', 'features...')) + '\n')
 		self.state = stimstate.State(None)
 		return
 
@@ -80,9 +80,6 @@ class MyOVBox(OVBox):
 	def uninitialize(self):
 		if self.gui != None:
 			self.gui.window.destroy()
-		# Combine TSV files
-		call(['cat', STIM_TSV, FEATURE_TSV,] )
-
 		return
 
 with open(DIR + '/modules.txt', 'w') as f:
