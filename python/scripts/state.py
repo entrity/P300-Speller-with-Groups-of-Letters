@@ -51,7 +51,7 @@ class State:
 			self.state |= State.REST
 		elif stimreststop in stims:
 			self.state &= ~State.REST
-			self.gui.restore()
+			if self.gui: self.gui.restore()
 		if stimsegstart in stims:
 			self.state |= State.SEGMENT
 		elif stimsegstop in stims:
@@ -66,6 +66,8 @@ class State:
 			self.state |= State.VISUAL
 		elif stimstimstop in stims:
 			self.state &= ~State.VISUAL
+			self.row = None
+			self.col = None
 		# Examine "Label" stims
 		for stim in stimslist:
 			if stim in range(rowbase, rowbase+my_gtk.ROW_CT):
@@ -75,9 +77,10 @@ class State:
 					if self.target_col is not None:
 						if self.gui: self.gui.highlight_target(self.target_row, self.target_col)
 				elif self.state & State.VISUAL:
-					self.row = row
 					if self.gui: self.gui.highlight_row(row)
-				if DEBUG > 1: print 'row', '(%d)' % chunk_id, row, self.target_row
+					self.row = row
+					self.col = None
+				if DEBUG > 1: print('row', '(%d)' % (chunk_id, row, self.target_row))
 			elif stim in range(colbase, colbase+my_gtk.COL_CT):
 				col = stim - colbase
 				if self.state & State.REST: # Set target
@@ -85,19 +88,20 @@ class State:
 					if self.target_row is not None:
 						if self.gui: self.gui.highlight_target(self.target_row, self.target_col)
 				elif self.state & State.VISUAL:
-					self.col = col
 					if self.gui: self.gui.highlight_col(col)
-				if DEBUG > 1: print 'col', '(%d)' % chunk_id, col, self.target_col
+					self.col = col
+					self.row = None
+				if DEBUG > 1: print('col', '(%d)' % (chunk_id, col, self.target_col))
 		# Change to a different view for sake of training on different views
 		if stimtrialstop in stims:
 			if len(self.trial) == 2:
 				self.trial = ()
 			else:
 				self.trial = self.trial + (random.randint(0,2),)
-			if DEBUG > 0: print 'trial', self.trial
-			self.gui._set_view(self.trial)
+			if DEBUG > 0: print('trial', self.trial)
+			if self.gui: self.gui._set_view(self.trial)
 		if stimstimstop in stims:
-			self.gui.restore()
+			if self.gui: self.gui.restore()
 
 stimmap = {	
 	0x00008001: 'OVTK_StimulationId_ExperimentStart',
