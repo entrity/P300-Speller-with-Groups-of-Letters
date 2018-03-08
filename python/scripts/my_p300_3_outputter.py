@@ -34,7 +34,7 @@ class MyOVBox(OVBox):
 			f.write('\t'.join(('start', 'in-channel', 'tar-row', 'tar-col', 'cur-row', 'cur-col', 'stims...')) + '\n')
 		with open(FEATURE_TSV, 'w') as f:
 			f.write('\t'.join(('start', 'in-channel', 'features...')) + '\n')
-		self.state = stimstate.State(None)
+		self.state = stimstate.State(None, 6, 6)
 		return
 
 	def process(self):

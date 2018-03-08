@@ -85,7 +85,7 @@
 				</Attribute>
 				<Attribute>
 					<Identifier>(0xc46b3d00, 0x3e0454e1)</Identifier>
-					<Value>(0x00000000, 0x00054ef5)</Value>
+					<Value>(0x00000000, 0x001a5871)</Value>
 				</Attribute>
 			</Attributes>
 		</Box>
@@ -112,7 +112,7 @@
 					<TypeIdentifier>(0x330306dd, 0x74a95f98)</TypeIdentifier>
 					<Name>Filename</Name>
 					<DefaultValue></DefaultValue>
-					<Value>/home/first/storage/Lab5 Recordings/online-mk-p300-xdawn-online-[2018.02.06-10.10.08].ov</Value>
+					<Value>/media/sf_desktop-tmp/P300-Speller-with-Groups-of-Letters/OpenvibeScenarios/markham-eeg-6x6/p300-xdawn-train-1-2-2-12-30-0.2-0.1-1.0-3.0-[2018.03.01-17.50.06].ov</Value>
 					<Modifiability>false</Modifiability>
 				</Setting>
 			</Settings>
@@ -147,7 +147,11 @@
 				</Attribute>
 				<Attribute>
 					<Identifier>(0xc46b3d00, 0x3e0454e1)</Identifier>
-					<Value>(0x00000000, 0x00152b0b)</Value>
+					<Value>(0x00000000, 0x005b39df)</Value>
+				</Attribute>
+				<Attribute>
+					<Identifier>(0xc67a01dc, 0x28ce06c1)</Identifier>
+					<Value></Value>
 				</Attribute>
 			</Attributes>
 		</Box>
@@ -210,7 +214,7 @@
 				</Attribute>
 				<Attribute>
 					<Identifier>(0xc46b3d00, 0x3e0454e1)</Identifier>
-					<Value>(0x00000000, 0x00052d67)</Value>
+					<Value>(0x00000000, 0x000c521e)</Value>
 				</Attribute>
 			</Attributes>
 		</Box>
@@ -263,7 +267,7 @@
 				</Attribute>
 				<Attribute>
 					<Identifier>(0xc46b3d00, 0x3e0454e1)</Identifier>
-					<Value>(0x00000000, 0x0004d982)</Value>
+					<Value>(0x00000000, 0x0006c00f)</Value>
 				</Attribute>
 				<Attribute>
 					<Identifier>(0xce18836a, 0x9c0eb403)</Identifier>
@@ -323,7 +327,7 @@
 				</Attribute>
 				<Attribute>
 					<Identifier>(0xc46b3d00, 0x3e0454e1)</Identifier>
-					<Value>(0x00000000, 0x00055fbc)</Value>
+					<Value>(0x00000000, 0x000d2c38)</Value>
 				</Attribute>
 			</Attributes>
 		</Box>
@@ -397,7 +401,7 @@
 				</Attribute>
 				<Attribute>
 					<Identifier>(0xc46b3d00, 0x3e0454e1)</Identifier>
-					<Value>(0x00000000, 0x00054ef5)</Value>
+					<Value>(0x00000000, 0x0011f4f2)</Value>
 				</Attribute>
 			</Attributes>
 		</Box>
@@ -437,7 +441,7 @@
 					<TypeIdentifier>(0x330306dd, 0x74a95f98)</TypeIdentifier>
 					<Name>Spatial filter configuration</Name>
 					<DefaultValue></DefaultValue>
-					<Value>/media/first/datastorage/P300-Speller-with-Groups-of-Letters/OpenvibeScenarios/p300-spatial-filter.cfg</Value>
+					<Value>/media/sf_desktop-tmp/P300-Speller-with-Groups-of-Letters/OpenvibeScenarios/p300-spatial-filter.cfg</Value>
 					<Modifiability>false</Modifiability>
 				</Setting>
 				<Setting>
@@ -478,11 +482,7 @@
 				</Attribute>
 				<Attribute>
 					<Identifier>(0xc46b3d00, 0x3e0454e1)</Identifier>
-					<Value>(0x00000000, 0x00053e2c)</Value>
-				</Attribute>
-				<Attribute>
-					<Identifier>(0xc67a01dc, 0x28ce06c1)</Identifier>
-					<Value></Value>
+					<Value>(0x00000000, 0x0010e889)</Value>
 				</Attribute>
 				<Attribute>
 					<Identifier>(0xc73e83ec, 0xf855c5bc)</Identifier>

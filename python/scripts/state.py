@@ -2,7 +2,6 @@ DEBUG = 0
 import random
 
 from StimulationsCodes import OpenViBE_stimulation as stimcodes
-import markham.my_gtk as my_gtk
 
 rowbase = stimcodes['OVTK_StimulationId_Label_01']
 colbase = stimcodes['OVTK_StimulationId_Label_07']
@@ -29,8 +28,10 @@ class State:
 	SEGMENT    = 1<<3
 	VISUAL     = 1<<4
 
-	def __init__(self, gui):
+	def __init__(self, gui, row_ct=2, col_ct=2):
 		self.state = State.NULL
+		self.row_ct = row_ct
+		self.col_ct = col_ct
 		self.target_row = None
 		self.target_col = None
 		self.row = None
@@ -70,7 +71,7 @@ class State:
 			self.col = None
 		# Examine "Label" stims
 		for stim in stimslist:
-			if stim in range(rowbase, rowbase+my_gtk.ROW_CT):
+			if stim in range(rowbase, rowbase+self.row_ct):
 				row = stim - rowbase
 				if self.state & State.REST: # Set target
 					self.target_row = row
@@ -81,7 +82,7 @@ class State:
 					self.row = row
 					self.col = None
 				if DEBUG > 1: print('row', '(%d)' % (chunk_id, row, self.target_row))
-			elif stim in range(colbase, colbase+my_gtk.COL_CT):
+			elif stim in range(colbase, colbase+self.col_ct):
 				col = stim - colbase
 				if self.state & State.REST: # Set target
 					self.target_col = col

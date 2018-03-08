@@ -3,11 +3,10 @@ from sklearn import discriminant_analysis
 from sklearn.externals import joblib
 import os
 from os.path import expanduser
+import re
 
 TARGET_CHANNEL = 0
 NONTARGET_CHANNEL = 1- TARGET_CHANNEL
-ROW_STATE = 'ROW'
-COL_STATE = 'COL'
 
 DIR = expanduser("~")
 DIR = '/media/sf_desktop-tmp/P300-Speller-with-Groups-of-Letters/'
@@ -29,7 +28,6 @@ class Analyzer:
 			f.next()
 			self.stims = [Stim(line) for line in f]
 		self.data = sorted(self.features + self.stims, key=lambda d: d.start)
-		# for d in self.data: print d.start
 		# Build model
 		self._build_lda()
 		# Organized trials, count classifications {correct,error}
@@ -61,45 +59,52 @@ class Analyzer:
 		X = np.append(targs, nongs, axis=0)
 		self.model = discriminant_analysis.LinearDiscriminantAnalysis()
 		self.model.fit(X, y)
+		print('score %f' % self.model.score(X,y))
+
+class SegmentAccumulator:
+	def __init__(self, analyzer):
+		self.predictions = np.zeros(analyzer.N)
+		self.stim_val = None
+	def add_prediction(self, is_target):
+		increment = 1 if is_target else -1
+		self.predictions[self.stim_val] += increment
 
 # A series of Visual Stimulations for which a single prediction should be made
 class Trial:
 	def __init__(self, analyzer, stim):
 		self.analyzer = analyzer
 		self.model = analyzer.model
-		self.visual_state = None
+		self.selected_accumulator = None
 		self.target_r = stim.target_r
 		self.target_c = stim.target_c
-		self.r_predictions = np.zeros(analyzer.N)
-		self.c_predictions = np.zeros(analyzer.N)
+		self.row = SegmentAccumulator(analyzer)
+		self.col = SegmentAccumulator(analyzer)
 		self.add_stim(stim)
 	def add_stim(self, stim):
-		if 'OVTK_StimulationId_VisualStimulationStart' in stim.stims:
-			self.r = stim.r
-			self.c = stim.c
-			if stim.r != None and stim.c == None:
-				self.visual_state = ROW_STATE
-			elif stim.c != None and stim.r == None:
-				self.visual_state = COL_STATE
-			else:
-				raise Exception('illegal stim for visual state %s' % (stim))
-		elif 'OVTK_StimulationId_VisualStimulationStop' in stim.stims: # may occur on same line as 'start'
-			self.visual_state = None
+		for name in stim.stims:
+			m = re.match(r'^OVTK_StimulationId_Label_(\w+)', name)
+			if m:
+				lbl = int(m.group(1), 16) - 1
+				if lbl >= 6:
+					lbl -= 6
+					self.col.stim_val = lbl
+					self.selected_accumulator = self.col
+				else:
+					self.row.stim_val = lbl
+					self.selected_accumulator = self.row
+			elif name == 'OVTK_StimulationId_VisualStimulationStop' in stim.stims: # may occur on same line as 'start'
+				self.selected_accumulator = None
 	def add_feature(self, feature):
-		if self.visual_state != None:
-			prediction = self.model.predict(np.asarray(feature.features).reshape(1,-1))[0]
-			increment = 1 if prediction == 1 else -1
-			if self.visual_state == ROW_STATE:
-				self.r_predictions[self.r] += increment
-			elif self.visual_state == COL_STATE:
-				self.c_predictions[self.c] += increment
+		if self.selected_accumulator != None:
+			is_target = self.model.predict(np.asarray(feature.features).reshape(1,-1))[0]
+			self.selected_accumulator.add_prediction(is_target)
 	def finalize(self):
-		self.row = np.argmax(self.r_predictions)
-		self.col = np.argmax(self.c_predictions)
-		return self.row, self.col
+		self.predicted_row = np.argmax(self.row.predictions)
+		self.predicted_col = np.argmax(self.col.predictions)
+		return self.predicted_row, self.predicted_col
 	def is_correct(self):
 		self.finalize()
-		return self.row == self.target_r and self.col == self.target_c
+		return self.predicted_row == self.target_r and self.predicted_col == self.target_c
 
 # A feature or stim, as received by the outputter algorithm box
 class Datum:
@@ -124,25 +129,28 @@ class Stim(Datum):
 		self.r, \
 		self.c, \
 		self.stims = tsv.split('\t', 6)
-		self.stims = self.stims.split('\t')
+		self.stims = [s.strip() for s in self.stims.split('\t')]
 		Datum.__init__(self)
 		self.target_r = int(self.target_r) if self.target_r != 'nan' else None
 		self.target_c = int(self.target_c) if self.target_c != 'nan' else None
 		self.r = int(self.r) if self.r != 'nan' else None
 		self.c = int(self.c) if self.c != 'nan' else None
 	def __str__(self):
-		return ' '.join(self.stims)
+		return '%10f %d (%s %s) [%s %s] | %s' % (self.start, self.channel, str(self.target_r), str(self.target_c), str(self.r), str(self.c), ' '.join(self.stims))
 
 if __name__ == '__main__':
 	import sys
-	features = sys.argv[1] if len(sys.argv) > 1 else '../../features.tsv'
-	stims = sys.argv[2] if len(sys.argv) > 2 else '../../stims.tsv'
+	featurestsv = sys.argv[1] if len(sys.argv) > 1 else '../../features.tsv'
+	stimstsv = sys.argv[2] if len(sys.argv) > 2 else '../../stims.tsv'
 	n = int(sys.argv[3]) if len(sys.argv) > 3 else 2
-	a = Analyzer(features, stims, n)
+	a = Analyzer(featurestsv, stimstsv, n)
 	res = a.run()
 	print(res)
+	sys.stdout.write('sum: ')
+	print(sum(int(x) for x in res))
 	if (len(sys.argv) > 4):
 		with open(sys.argv[4],'a') as f:
+			f.write('%d\t' % n)
 			f.write('\t'.join(sys.argv[5:]))
 			f.write('\n')
 			f.write('sum %d / %d\n' % (sum([1 if b else -1 for b in res]), len(res)))

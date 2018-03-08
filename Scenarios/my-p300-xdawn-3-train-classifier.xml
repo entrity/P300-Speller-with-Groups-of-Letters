@@ -41,7 +41,7 @@
 				</Attribute>
 				<Attribute>
 					<Identifier>(0xc46b3d00, 0x3e0454e1)</Identifier>
-					<Value>(0x00000000, 0x000ef133)</Value>
+					<Value>(0x00000000, 0x0013ec43)</Value>
 				</Attribute>
 				<Attribute>
 					<Identifier>(0xc80ce8af, 0xf699f813)</Identifier>
@@ -96,7 +96,7 @@
 				</Attribute>
 				<Attribute>
 					<Identifier>(0xc46b3d00, 0x3e0454e1)</Identifier>
-					<Value>(0x00000000, 0x000fcb52)</Value>
+					<Value>(0x00000000, 0x000e38a7)</Value>
 				</Attribute>
 				<Attribute>
 					<Identifier>(0xc80ce8af, 0xf699f813)</Identifier>
@@ -135,7 +135,7 @@
 					<TypeIdentifier>(0x330306dd, 0x74a95f98)</TypeIdentifier>
 					<Name>Filename</Name>
 					<DefaultValue></DefaultValue>
-					<Value>/home/first/storage/Lab5 Recordings/online-mk-p300-xdawn-online-[2018.02.06-10.06.41].ov</Value>
+					<Value>/media/sf_desktop-tmp/P300-Speller-with-Groups-of-Letters/Scenarios/markham-eeg-2x2/p300-xdawn-train-4-2-2-6-30-0.2-0.1-1.0-3.0-[2018.03.01-19.09.44].ov</Value>
 					<Modifiability>false</Modifiability>
 				</Setting>
 			</Settings>
@@ -170,7 +170,7 @@
 				</Attribute>
 				<Attribute>
 					<Identifier>(0xc46b3d00, 0x3e0454e1)</Identifier>
-					<Value>(0x00000000, 0x0070c996)</Value>
+					<Value>(0x00000000, 0x01941846)</Value>
 				</Attribute>
 			</Attributes>
 		</Box>
@@ -223,7 +223,7 @@
 				</Attribute>
 				<Attribute>
 					<Identifier>(0xc46b3d00, 0x3e0454e1)</Identifier>
-					<Value>(0x00000000, 0x001aef72)</Value>
+					<Value>(0x00000000, 0x001adea9)</Value>
 				</Attribute>
 				<Attribute>
 					<Identifier>(0xc73e83ec, 0xf855c5bc)</Identifier>
@@ -309,7 +309,7 @@
 				</Attribute>
 				<Attribute>
 					<Identifier>(0xc46b3d00, 0x3e0454e1)</Identifier>
-					<Value>(0x00000000, 0x00152b0d)</Value>
+					<Value>(0x00000000, 0x0029ae54)</Value>
 				</Attribute>
 			</Attributes>
 		</Box>
@@ -361,7 +361,7 @@
 				</Attribute>
 				<Attribute>
 					<Identifier>(0xc46b3d00, 0x3e0454e1)</Identifier>
-					<Value>(0x00000000, 0x001b9739)</Value>
+					<Value>(0x00000000, 0x002a66dd)</Value>
 				</Attribute>
 			</Attributes>
 		</Box>
@@ -448,7 +448,7 @@
 				</Attribute>
 				<Attribute>
 					<Identifier>(0xc46b3d00, 0x3e0454e1)</Identifier>
-					<Value>(0x00000000, 0x0057e23d)</Value>
+					<Value>(0x00000000, 0x016c93a3)</Value>
 				</Attribute>
 			</Attributes>
 		</Box>
@@ -522,7 +522,7 @@
 				</Attribute>
 				<Attribute>
 					<Identifier>(0xc46b3d00, 0x3e0454e1)</Identifier>
-					<Value>(0x00000000, 0x00197e54)</Value>
+					<Value>(0x00000000, 0x004d1203)</Value>
 				</Attribute>
 			</Attributes>
 		</Box>
@@ -593,7 +593,7 @@
 				</Attribute>
 				<Attribute>
 					<Identifier>(0xc46b3d00, 0x3e0454e1)</Identifier>
-					<Value>(0x00000000, 0x000d801d)</Value>
+					<Value>(0x00000000, 0x00156e25)</Value>
 				</Attribute>
 			</Attributes>
 		</Box>
@@ -618,7 +618,7 @@
 					<TypeIdentifier>(0x79a9edeb, 0x245d83fc)</TypeIdentifier>
 					<Name>Spatial Filter Coefficients</Name>
 					<DefaultValue>1;0;0;0;0;1;0;0;0;0;1;0;0;0;0;1</DefaultValue>
-					<Value>8.843368e-004 -6.539882e-003 6.493086e-005 -1.591978e-003 8.962039e-003 -3.487439e-003 -5.540185e-004 2.078431e-003 -9.881634e-001 1.370237e-001 6.792872e-002 -7.200659e-004 2.256230e-003 -2.132186e-004 -1.461755e-003 -9.444323e-003 -4.179003e-003 3.543052e-003 1.084137e-002 -8.566209e-001 4.692433e-001 2.139319e-001 1.155023e-003 -4.157936e-004 -4.741747e-004 1.237857e-003 -7.505389e-004 -1.501655e-003 8.736640e-004 1.437677e-003 -4.841511e-001 -8.735870e-001 4.934159e-002 </Value>
+					<Value>-9.416601e-05 -8.807040e-06 -1.749456e-03 -7.036777e-08 9.756964e-06 1.239944e-02 1.223441e-03 -1.112232e-02 -4.564151e-01 8.767819e-01 1.505216e-01 -1.137518e-05 -2.752193e-06 3.462745e-04 -7.739424e-06 8.593149e-06 -1.009442e-04 -2.625117e-04 1.236793e-04 -2.243788e-01 6.099714e-01 7.599926e-01 -1.313946e-05 -1.774140e-06 3.429220e-04 -1.356694e-05 1.608981e-06 -2.512310e-04 9.382572e-05 -3.326829e-04 8.404335e-01 -2.747049e-01 4.671280e-01 </Value>
 					<Modifiability>false</Modifiability>
 				</Setting>
 				<Setting>
@@ -678,7 +678,7 @@
 				</Attribute>
 				<Attribute>
 					<Identifier>(0xc46b3d00, 0x3e0454e1)</Identifier>
-					<Value>(0x00000000, 0x001dc0db)</Value>
+					<Value>(0x00000000, 0x002699c6)</Value>
 				</Attribute>
 				<Attribute>
 					<Identifier>(0xc80ce8af, 0xf699f813)</Identifier>
@@ -761,7 +761,7 @@
 				</Attribute>
 				<Attribute>
 					<Identifier>(0xc46b3d00, 0x3e0454e1)</Identifier>
-					<Value>(0x00000000, 0x000d801c)</Value>
+					<Value>(0x00000000, 0x000e38aa)</Value>
 				</Attribute>
 			</Attributes>
 		</Box>
@@ -891,7 +891,7 @@
 				</Attribute>
 				<Attribute>
 					<Identifier>(0xc46b3d00, 0x3e0454e1)</Identifier>
-					<Value>(0x00000000, 0x0015a07c)</Value>
+					<Value>(0x00000000, 0x002491b1)</Value>
 				</Attribute>
 				<Attribute>
 					<Identifier>(0xc73e83ec, 0xf855c5bc)</Identifier>
@@ -917,7 +917,7 @@
 		</Box>
 		<Box>
 			<Identifier>(0x4b1dd982, 0x0fd4a8ee)</Identifier>
-			<Name>Classifier Trainer</Name>
+			<Name>Outputter</Name>
 			<AlgorithmClassIdentifier>(0x5dc4f669, 0xd3fd4d64)</AlgorithmClassIdentifier>
 			<Inputs>
 				<Input>
@@ -927,6 +927,10 @@
 				<Input>
 					<TypeIdentifier>(0x544a003e, 0x6dcba5f6)</TypeIdentifier>
 					<Name>nontargets</Name>
+				</Input>
+				<Input>
+					<TypeIdentifier>(0x6f752dd0, 0x082a321e)</TypeIdentifier>
+					<Name>stims</Name>
 				</Input>
 			</Inputs>
 			<Settings>
@@ -941,7 +945,7 @@
 					<TypeIdentifier>(0xb0d0db45, 0x49cbc34a)</TypeIdentifier>
 					<Name>Script</Name>
 					<DefaultValue></DefaultValue>
-					<Value>/media/sf_desktop-tmp/P300-Speller-with-Groups-of-Letters/python/scripts/my_p300_3_classifier_trainer.py</Value>
+					<Value>/media/sf_desktop-tmp/P300-Speller-with-Groups-of-Letters/python/scripts/my_p300_3_outputter.py</Value>
 					<Modifiability>false</Modifiability>
 				</Setting>
 			</Settings>
@@ -952,7 +956,7 @@
 				</Attribute>
 				<Attribute>
 					<Identifier>(0x1fa7a38f, 0x54edbe0b)</Identifier>
-					<Value>451.000000</Value>
+					<Value>448.000000</Value>
 				</Attribute>
 				<Attribute>
 					<Identifier>(0x1fa963f5, 0x1a638cd4)</Identifier>
@@ -980,11 +984,15 @@
 				</Attribute>
 				<Attribute>
 					<Identifier>(0xad100179, 0xa3c984ab)</Identifier>
-					<Value>130</Value>
+					<Value>100</Value>
 				</Attribute>
 				<Attribute>
 					<Identifier>(0xc46b3d00, 0x3e0454e1)</Identifier>
-					<Value>(0x00000000, 0x6a3e079c)</Value>
+					<Value>(0x00000000, 0x0005f6bd)</Value>
+				</Attribute>
+				<Attribute>
+					<Identifier>(0xc67a01dc, 0x28ce06c1)</Identifier>
+					<Value></Value>
 				</Attribute>
 				<Attribute>
 					<Identifier>(0xc73e83ec, 0xf855c5bc)</Identifier>
@@ -1375,11 +1383,11 @@
 				</Attribute>
 				<Attribute>
 					<Identifier>(0x3f0a3b27, 0x570913d2)</Identifier>
-					<Value>418</Value>
+					<Value>415</Value>
 				</Attribute>
 				<Attribute>
 					<Identifier>(0x6267b5c5, 0x676e3e42)</Identifier>
-					<Value>280</Value>
+					<Value>273</Value>
 				</Attribute>
 			</Attributes>
 		</Link>
@@ -1404,11 +1412,40 @@
 				</Attribute>
 				<Attribute>
 					<Identifier>(0x3f0a3b27, 0x570913d2)</Identifier>
-					<Value>418</Value>
+					<Value>415</Value>
 				</Attribute>
 				<Attribute>
 					<Identifier>(0x6267b5c5, 0x676e3e42)</Identifier>
-					<Value>295</Value>
+					<Value>288</Value>
+				</Attribute>
+			</Attributes>
+		</Link>
+		<Link>
+			<Identifier>(0x45c71543, 0x516d0b33)</Identifier>
+			<Source>
+				<BoxIdentifier>(0x00001f83, 0x00004e32)</BoxIdentifier>
+				<BoxOutputIndex>2</BoxOutputIndex>
+			</Source>
+			<Target>
+				<BoxIdentifier>(0x4b1dd982, 0x0fd4a8ee)</BoxIdentifier>
+				<BoxInputIndex>2</BoxInputIndex>
+			</Target>
+			<Attributes>
+				<Attribute>
+					<Identifier>(0x1b32c44c, 0x1905e0e9)</Identifier>
+					<Value>-133</Value>
+				</Attribute>
+				<Attribute>
+					<Identifier>(0x358ae8b5, 0x0f8bacd1)</Identifier>
+					<Value>415</Value>
+				</Attribute>
+				<Attribute>
+					<Identifier>(0x3f0a3b27, 0x570913d2)</Identifier>
+					<Value>415</Value>
+				</Attribute>
+				<Attribute>
+					<Identifier>(0x6267b5c5, 0x676e3e42)</Identifier>
+					<Value>303</Value>
 				</Attribute>
 			</Attributes>
 		</Link>
