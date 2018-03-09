@@ -1,3 +1,5 @@
+import pdb
+
 import numpy as np
 from sklearn import discriminant_analysis
 from sklearn.externals import joblib
@@ -26,7 +28,7 @@ class Analyzer:
 			self.features = [Feature(line) for line in f]
 		with open(self.stim_tsv) as f:
 			f.next()
-			self.stims = [Stim(line) for line in f]
+			self.stims = [Stim(line) for line in f if len(line.strip())]
 		self.data = sorted(self.features + self.stims, key=lambda d: d.start)
 		# Build model
 		self._build_lda()
@@ -59,7 +61,8 @@ class Analyzer:
 		X = np.append(targs, nongs, axis=0)
 		self.model = discriminant_analysis.LinearDiscriminantAnalysis()
 		self.model.fit(X, y)
-		print('score %f' % self.model.score(X,y))
+		self.lda_score = self.model.score(X,y)
+		print('score %f' % self.lda_score)
 
 class SegmentAccumulator:
 	def __init__(self, analyzer):
@@ -71,16 +74,22 @@ class SegmentAccumulator:
 
 # A series of Visual Stimulations for which a single prediction should be made
 class Trial:
+	i = 0
+
 	def __init__(self, analyzer, stim):
+		Trial.i += 1
 		self.analyzer = analyzer
 		self.model = analyzer.model
 		self.selected_accumulator = None
+		self.label = None
 		self.target_r = stim.target_r
 		self.target_c = stim.target_c
 		self.row = SegmentAccumulator(analyzer)
 		self.col = SegmentAccumulator(analyzer)
 		self.add_stim(stim)
+		self.last_stim = None
 	def add_stim(self, stim):
+		self.last_stim = stim
 		for name in stim.stims:
 			m = re.match(r'^OVTK_StimulationId_Label_(\w+)', name)
 			if m:
@@ -92,15 +101,22 @@ class Trial:
 				else:
 					self.row.stim_val = lbl
 					self.selected_accumulator = self.row
-			elif name == 'OVTK_StimulationId_VisualStimulationStop' in stim.stims: # may occur on same line as 'start'
-				self.selected_accumulator = None
+			# elif name == 'OVTK_StimulationId_VisualStimulationStop' in stim.stims: # may occur on same line as 'start'
+			# 	self.selected_accumulator = None
 	def add_feature(self, feature):
-		if self.selected_accumulator != None:
+		# if self.selected_accumulator != None:
 			is_target = self.model.predict(np.asarray(feature.features).reshape(1,-1))[0]
+			# pdb.set_trace()
+			# if is_target != 1-feature.channel:
+			# 	print 'ERR'
+			# 	sys.exit(8)
 			self.selected_accumulator.add_prediction(is_target)
+		# else:
+			# pdb.set_trace()
 	def finalize(self):
 		self.predicted_row = np.argmax(self.row.predictions)
 		self.predicted_col = np.argmax(self.col.predictions)
+		# print(self.target_r, self.target_c, 'row pred', self.row.predictions)
 		return self.predicted_row, self.predicted_col
 	def is_correct(self):
 		self.finalize()
@@ -122,13 +138,17 @@ class Feature(Datum):
 
 class Stim(Datum):
 	def __init__(self, tsv):
-		self.start, \
-		self.channel, \
-		self.target_r, \
-		self.target_c, \
-		self.r, \
-		self.c, \
-		self.stims = tsv.split('\t', 6)
+		try:
+			self.start, \
+			self.channel, \
+			self.target_r, \
+			self.target_c, \
+			self.r, \
+			self.c, \
+			self.stims = tsv.split('\t', 6)
+		except ValueError as ex:
+			print tsv
+			raise ex
 		self.stims = [s.strip() for s in self.stims.split('\t')]
 		Datum.__init__(self)
 		self.target_r = int(self.target_r) if self.target_r != 'nan' else None
@@ -142,17 +162,46 @@ if __name__ == '__main__':
 	import sys
 	featurestsv = sys.argv[1] if len(sys.argv) > 1 else '../../features.tsv'
 	stimstsv = sys.argv[2] if len(sys.argv) > 2 else '../../stims.tsv'
+	print(featurestsv)
 	n = int(sys.argv[3]) if len(sys.argv) > 3 else 2
 	a = Analyzer(featurestsv, stimstsv, n)
 	res = a.run()
 	print(res)
-	sys.stdout.write('sum: ')
-	print(sum(int(x) for x in res))
+	correct_selections = sum(int(x) for x in res)
+	print('correct selections: %d / %d   (%f)' % (correct_selections, len(res), float(correct_selections)/len(res)))
+
+	if n == 2:
+		correct_char = correct_selections / 3.0
+		false0 = len([b for b in res[0::3] if b == False])
+		false1 = len([b for b in res[1::3] if b == False])
+		false2 = len([b for b in res[2::3] if b == False])
+		discounted_output = correct_char - 2 * (false2) - 2 / 3.0 * (false0 + false1)
+	else:
+		correct_char = correct_selections
+		falses = len([b for b in res if b == False])
+		discounted_output = correct_char - 2 * falses
+	print('dchar %.3f' % discounted_output)
+
+
+	interface = sys.argv[5] if len(sys.argv) > 5 else os.path.basename(os.path.dirname(stimstsv))
+	if re.search('emg', interface): # 2x2x1x30 x (0.3+1.5)
+		seconds = 2*2*1*30 * (0.3+1.5)
+	elif re.search('2x2', interface): # 2x2x4x30 x (0.2+0.1)
+		seconds = 2*2*4*30 * (0.2+0.1)
+	elif re.search('6x6', interface): # 6x6x4x10 x (0.2+0.1)
+		seconds = 6*6*4*10 * (0.2+0.1)
+	else:
+		print('ERR: unknown interface', interface)
+		sys.exit(7)
+	throughput = discounted_output / seconds
+
 	if (len(sys.argv) > 4):
 		with open(sys.argv[4],'a') as f:
 			f.write('%d\t' % n)
 			f.write('\t'.join(sys.argv[5:]))
+			f.write('\t%s' % stimstsv)
 			f.write('\n')
-			f.write('sum %d / %d\n' % (sum([1 if b else -1 for b in res]), len(res)))
+			f.write('%15s %15s %15s %15s %15s %15s \n' % ('interface', 'lda score', 'correct sel', 'correct char', 'discounted outp', 'throughput'))
+			f.write('%15s %15f %15f %15f %15f %15f \n' % (interface, a.lda_score, correct_selections, correct_char, discounted_output, throughput))
 			f.write('\t'.join([str(b) for b in res]))
-			f.write('\n')
+			f.write('\n\n')

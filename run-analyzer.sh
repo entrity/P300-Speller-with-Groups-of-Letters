@@ -2,7 +2,11 @@
 
 [[ -f analysis.tsv ]] && rm analysis.tsv
 
-find Scenarios -name \*-features.tsv | while read -r fea; do
+DIR=OpenvibeScenarios
+DIR=Scenarios
+DIR=.
+
+find $DIR -name \*-features.tsv | while read -r fea; do
 	sti=${fea/features/stims}
 	# echo $fea
 	# echo $sti
@@ -15,5 +19,5 @@ find Scenarios -name \*-features.tsv | while read -r fea; do
 		echo eeg
 		N=2
 	fi
-	python2 ./python/scripts/my_p300_3_analyzer.py $fea $sti $N analysis.tsv
+	python2 ./python/scripts/my_p300_3_analyzer.py $fea $sti $N analysis.tsv || exit 8
 done
